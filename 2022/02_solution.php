@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-$input = trim(file_get_contents("./02_input.txt"));
+$input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "02_input.txt"));
 $input = explode("\n", $input);
 
 const SCORE = [

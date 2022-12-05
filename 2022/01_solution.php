@@ -1,6 +1,6 @@
 <?php
 
-$input = trim(file_get_contents('./01_input.txt'));
+$input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . '01_input.txt'));
 $input = explode("\n\n", $input);
 
 $totals = [];
