@@ -33,8 +33,18 @@ function testPartOne(): bool
 
 function testPartTwo(): bool
 {
-    $input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "input_test01.txt"));
     $errorMsg = "";
+    $input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "input_test02.txt"));
+    $result = runInstructions($input, createScreen());
+    $expectedScreen = "##..##..##..##..##..##..##..##..##..##.."
+    . "###...###...###...###...###...###...###."
+    . "####....####....####....####....####...."
+    . "#####.....#####.....#####.....#####....."
+    . "######......######......######......####"
+    . "#######.......#######.......#######.....";
+    if ($result['screen'] != $expectedScreen) {
+        $errorMsg .= "Screen does not match expected screen!\n";
+    }
     if ($errorMsg) {
         echo "== TESTS PART 2 ==\n";
         echo $errorMsg;
@@ -63,7 +73,33 @@ function addSignalStrength(int $cycle, int &$lastCycle, int $register, array &$s
     }
 }
 
-function runInstructions(string $input, array $crt = [])
+function lightScreenPixel($cycle, $pos, &$screen)
+{
+    if ($screen) {
+        $cyclePos = $cycle -1;
+        $offset = floor($cyclePos/40) * 40;
+        $pos += $offset;
+        if (in_array($cyclePos, range($pos-1, $pos+1))) {
+            $screen[$cyclePos] = '#';
+        }
+    }
+}
+
+function createScreen()
+{
+    return str_repeat('.', 240);
+}
+
+function drawScreen(string $screen)
+{
+    if ($screen) {
+        for ($i = 0; $i < 6; $i++) {
+            echo substr($screen, $i*40, 40) . "\n";
+        }
+    }
+}
+
+function runInstructions(string $input, string $screen = '')
 {
     $lines = explode("\n", $input);
     $x = 1; // register
@@ -76,13 +112,16 @@ function runInstructions(string $input, array $crt = [])
         $line = $lines[$i];
         if (substr($line, 0, 4) == 'noop') {
             $cycle++;
+            lightScreenPixel($cycle, $x, $screen);
             addSignalStrength($cycle, $lastCycle, $x, $signalStrength);
             // after cycle
         } elseif (substr($line, 0, 4) == 'addx') {
             $cycle++;
             // during cycle
+            lightScreenPixel($cycle, $x, $screen);
             addSignalStrength($cycle, $lastCycle, $x, $signalStrength);
             $cycle++;
+            lightScreenPixel($cycle, $x, $screen);
             addSignalStrength($cycle, $lastCycle, $x, $signalStrength);
             // after cycle
             $x += (int)trim(substr($line, 4));
@@ -92,6 +131,7 @@ function runInstructions(string $input, array $crt = [])
     return [
         'register'          => $x,
         'signalStrength'    => $signalStrength,
+        'screen'            => $screen,
     ];
 }
 
@@ -107,33 +147,10 @@ function partOne(string $input)
     return $sum;
 }
 
-function createScreen()
-{
-    $crt = [];
-    for ($i = 0; $i < 6; $i++) {
-        $row = [];
-        for ($y = 0;$y < 40; $y++) {
-            $row[] = '.';
-        }
-        $crt[] = $row;
-    }
-    return $crt;
-}
-
-function drawScreen(array $screen)
-{
-    foreach ($screen as $row) {
-        foreach ($row as $col) {
-            echo $col;
-        }
-        echo "\n";
-    }
-}
-
 function partTwo(string $input)
 {
-    $crt = createScreen();
-    drawScreen($crt);
+    $result = runInstructions($input, createScreen());
+    drawScreen($result['screen']);
 }
 
 
@@ -142,9 +159,9 @@ $input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "input.txt"));
 if (tests()) {
     // part one code
     $result01 = partOne($input);
-    echo "Part one: {$result01}\n";
+    echo "Part one: {$result01}\n"; // 12980
 
     // part two code
-    echo "Part two\n";
-    partTwo($input);
+    echo "Part two:\n";
+    partTwo($input); // BRJLFULP
 }
