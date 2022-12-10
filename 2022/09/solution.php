@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 function testPartOne()
 {
-    $input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "09_input_test.txt"));
+    $input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "input_test.txt"));
     $data = calculatePositions($input, 2);
     $tVisited = [
         ['x' => 0, 'y' => 0],
@@ -52,7 +52,7 @@ function testPartOne()
 
 function testPartTwo()
 {
-    $input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "09_input_test2.txt"));
+    $input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "input_test2.txt"));
     $data = calculatePositions($input, 10, false);
     $errorCount = 0;
     $errorMsg = "";
@@ -160,7 +160,7 @@ function calculatePositions(string $input, int $snakeLength)
     ];
 }
 
-$input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "09_input.txt"));
+$input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "input.txt"));
 
 if (tests()) {
     $data = calculatePositions($input, 2);

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-$input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "04_input.txt"));
+$input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "input.txt"));
 $pairs = explode("\n", $input);
 
 $c1 = 0;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-$input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "03_input.txt"));
+$input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "input.txt"));
 $rucksacks = explode("\n", $input);
 $lowerAndUpper = array_flip(str_split(strtolower(implode(range('a', 'z'))) . strtoupper(implode(range('a', 'z')))));
 

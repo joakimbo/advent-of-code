@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-$testInput = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "07_input_test.txt"));
-$input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "07_input.txt"));
+$testInput = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "input_test.txt"));
+$input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "input.txt"));
 
 function getDirectoryAsStringFromArray(array $directory)
 {

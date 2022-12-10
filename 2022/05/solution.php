@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-$input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "05_input.txt"));
+$input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "input.txt"));
 $input = explode("\n\n", $input);
 
 $alphabet = range('A', 'Z');
