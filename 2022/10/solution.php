@@ -35,7 +35,7 @@ function testPartTwo(): bool
 {
     $errorMsg = "";
     $input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "input_test02.txt"));
-    $result = runInstructions($input, createScreen());
+    $result = runInstructions($input);
     $expectedScreen = "##..##..##..##..##..##..##..##..##..##.."
     . "###...###...###...###...###...###...###."
     . "####....####....####....####....####...."
@@ -85,11 +85,6 @@ function lightScreenPixel($cycle, $pos, &$screen)
     }
 }
 
-function createScreen()
-{
-    return str_repeat('.', 240);
-}
-
 function drawScreen(string $screen)
 {
     if ($screen) {
@@ -99,12 +94,13 @@ function drawScreen(string $screen)
     }
 }
 
-function runInstructions(string $input, string $screen = '')
+function runInstructions(string $input)
 {
     $lines = explode("\n", $input);
     $x = 1; // register
     $cycle = 0;
     $lastCycle = 0;
+    $screen = str_repeat('.', 240);
 
     $signalStrength = [];
 
@@ -149,13 +145,11 @@ function partOne(string $input)
 
 function partTwo(string $input)
 {
-    $result = runInstructions($input, createScreen());
+    $result = runInstructions($input);
     drawScreen($result['screen']);
 }
 
-
 $input = trim(file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . "input.txt"));
-
 if (tests()) {
     // part one code
     $result01 = partOne($input);
