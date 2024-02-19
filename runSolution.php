@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-function validateYear(array $argv)
+function validateYear(string $argv)
 {
     if (strlen($argv[1]) !== 4) {
         return false;
@@ -10,7 +10,7 @@ function validateYear(array $argv)
     return true;
 }
 
-function validateDay(array $argv)
+function validateDay(string $argv)
 {
     return true;
 }
@@ -31,6 +31,7 @@ function executeDay(string $year, string $day)
 
 $year = date('Y');
 $day = date('d');
+
 if (isset($argv[1]) && validateYear($argv[1])) {
     $year = $argv[1];
 }
